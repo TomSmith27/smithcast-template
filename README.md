@@ -1,4 +1,4 @@
-# Vue 2 + Typescript + Vite
+# Base Repository for SmithCast products
 
 This template should help get you started developing with Vue 2 and Typescript in Vite.
 
