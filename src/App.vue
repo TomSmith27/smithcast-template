@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="#">TechSmith Template</b-navbar-brand>
+      <b-navbar-brand href="#">Football Fixtures</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -45,4 +45,17 @@
 </template>
 
 <script lang="ts" setup>
+
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./firebase";
+import { onMounted } from "vue";
+onMounted(async () => {
+  const querySnapshot = await getDocs(collection(db, "test"));
+  querySnapshot.forEach((doc) => {
+    console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+  });
+})
+
+
+
 </script>
