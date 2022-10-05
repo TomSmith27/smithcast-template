@@ -14,5 +14,5 @@ jobs:
       - uses: cypress-io/github-action@v4
         with:
           # env: PORT=4000
-          build: yarn run build
-          start: yarn run start
+          build: npm run build
+          start: npm run start

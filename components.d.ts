@@ -7,8 +7,6 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    GameForm: typeof import('./src/components/league-admin/game-form.vue')['default']
-    GameFormModal: typeof import('./src/components/league-admin/game-form-modal.vue')['default']
     GameHalfDisplay: typeof import('./src/components/league-admin/game-half-display.vue')['default']
     GameHalfForm: typeof import('./src/components/league-admin/game-half-form.vue')['default']
     Games: typeof import('./src/components/league-admin/games.vue')['default']
