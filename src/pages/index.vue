@@ -7,8 +7,9 @@
           <div class="d-flex justify-content-between">
             <b-card-title>{{ league.name }}</b-card-title>
             <div>
-              <span class="text-muted">                Members: <b-badge variant="primary">{{league.players.length}}</b-badge>                              </span>
-              <b-button class="ml-2" :to="{name : 'league-details', params : {id : league.id}}" variant="primary">View
+              <span class="text-muted">                Members: <b-badge
+                  variant="primary">{{ league.players.length }}</b-badge>                              </span>
+              <b-button class="ml-2" :to="{name : 'leagues-id', params : {id : league.id}}" variant="primary">View
                 League
               </b-button>
               <b-button class="ml-2" variant="outline-danger" @click="deleteLeague(league.id)">Delete League</b-button>
@@ -33,24 +34,17 @@
 <script lang="ts" setup>
 
 import { onMounted, ref } from "vue";
-import { collection, getDocs, query, addDoc, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+import { collection, getDocs, query, setDoc, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import { ForgeModal } from "@3squared/forge-ui";
 import { ValidationObserver } from 'vee-validate'
+import { defaultConverter, League } from "../models";
 
 const leagues = ref<League[]>([]);
 const newLeagueName = ref('');
 const observer = ref()
 onMounted(async () => {
-  const q = query(collection(db, 'leagues')).withConverter<League>({
-    toFirestore(modelObject) {
-      return { ...modelObject }
-    },
-    fromFirestore(snapshot, options) {
-      const data = snapshot.data(options);
-      return { id: snapshot.id, ...data } as League
-    }
-  })
+  const q = query(collection(db, 'leagues')).withConverter<League>(defaultConverter())
   onSnapshot(q, (querySnapshot) => {
     leagues.value = querySnapshot.docs.map((d) => d.data());
   })
@@ -65,7 +59,7 @@ async function createLeague() {
   if (!await observer.value.validate()) {
     return false
   }
-  return await addDoc(collection(db, 'leagues'), {
+  return await setDoc(doc(db, 'leagues', newLeagueName.value.replaceAll(' ', '-')), {
     name: newLeagueName.value,
     players: [{ id: 1, name: 'You' }]
   });

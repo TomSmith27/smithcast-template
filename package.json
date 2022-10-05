@@ -9,12 +9,14 @@
     "test": "cypress run"
   },
   "dependencies": {
-    "@3squared/forge-ui": "^1.1.2",
+    "@3squared/forge-ui": "1.1.3",
+    "dayjs": "^1.11.5",
     "firebase": "^9.10.0",
     "pinia": "^2.0.22",
     "vue": "^2.7.10",
     "vue-demi": "^0.13.11",
-    "vue-router": "^3.6.5"
+    "vue-router": "^3.6.5",
+    "vue2-helpers": "^2.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue2": "^2.0.0",
