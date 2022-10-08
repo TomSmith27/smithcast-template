@@ -1,8 +1,6 @@
 <template>
   <div>
-    <forge-page-header :title="`Games for ${props.id}`">
-      <b-button variant="primary" @click="beginAddGame">Add Game</b-button>
-    </forge-page-header>
+    <b-button variant="primary" size="sm" block @click="beginAddGame">Add Game</b-button>
     <div class="shadow-sm d-flex flex-column p-3 my-2 border" v-for="game in games">
       <div class="d-flex align-items-center justify-content-between">
         <div class="h4">{{ formatDate(game.date) }}</div>
@@ -54,22 +52,18 @@ import { ValidationObserver } from 'vee-validate'
 import GameHalfForm from './game-half-form.vue'
 import dayjs from 'dayjs'
 import { usePlayerName } from '../../composables'
+import { useGames } from '../../composables/useGames'
 
 const props = defineProps({
   id: { type: String, required: true },
 })
-const games = ref<Game[]>([])
+const { games, loadGames } = useGames(props.id)
 const observer = ref()
 const gamesCollection = collection(db, 'leagues', props.id, 'games')
+const players = ref<Player[]>([])
+
 onMounted(async () => {
-  const q = query(gamesCollection).withConverter(
-    defaultConverter<Game>((data) => ({
-      date: dayjs(data.date.toDate()).toDate(),
-    }))
-  )
-  onSnapshot(q, (querySnapshot) => {
-    games.value = querySnapshot.docs.map((d) => d.data())
-  })
+  loadGames()
 
   const playersQuery = query(collection(db, 'leagues', props.id, 'players')).withConverter(defaultConverter<Player>())
   onSnapshot(playersQuery, (querySnapshot) => {
@@ -77,7 +71,6 @@ onMounted(async () => {
   })
 })
 
-const players = ref<Player[]>([])
 const playerOfMatchContenders = computed(() => {
   return players.value.filter((p) => [...newGame.value.firstHalf.bibs.players, ...newGame.value.firstHalf.shirts.players, ...newGame.value.secondHalf.bibs.players, ...newGame.value.secondHalf.shirts.players].includes(p.id))
 })

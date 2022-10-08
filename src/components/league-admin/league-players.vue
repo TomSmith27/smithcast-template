@@ -1,8 +1,6 @@
 <template>
   <div>
-    <forge-page-header :title="`Players for ${props.id}`">
-      <b-button variant="primary" @click="beginAddPlayer">Add Player</b-button>
-    </forge-page-header>
+    <b-button block size="sm" variant="primary" @click="beginAddPlayer">Add Player</b-button>
     <div class="shadow-sm d-flex p-3 my-2 border align-items-center justify-content-between" v-for="player in players">
       <div class="d-flex align-items-center">
         <img class="profile-pic mr-2" src="https://cdn-icons-png.flaticon.com/512/147/147285.png" alt="" />
@@ -11,8 +9,8 @@
           {{ player.lastName }}
         </div>
       </div>
-      <div>
-        <b-button class="mr-2" variant="outline-primary" @click="beginEditPlayer(player.id)">Edit</b-button>
+      <div class="d-flex flex-column">
+        <b-button class="" variant="outline-primary" @click="beginEditPlayer(player.id)">Edit</b-button>
         <b-button variant="outline-danger" @click="deletePlayer(player.id)">Delete</b-button>
       </div>
     </div>
