@@ -16,7 +16,9 @@ export default defineConfig({
     Components({ /* options */
       resolvers: [forgeResolver()]
     }),
-    Pages(),
+    Pages({
+      routeStyle: 'nuxt'
+    }),
     checker({ vueTsc: true }),
   ],
   resolve: {
