@@ -8,7 +8,6 @@ const pinia = createPinia()
 import './theme.scss'
 import { ModalPlugin } from 'bootstrap-vue'
 import { ForgeModal, ForgeModalHelper, useForgeValidation } from "@3squared/forge-ui";
-
 const router = new VueRouter({
   routes // short for `routes: routes`
 })

@@ -7,6 +7,13 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    GameHalfDisplay: typeof import('./src/components/league-admin/game-half-display.vue')['default']
+    GameHalfForm: typeof import('./src/components/league-admin/game-half-form.vue')['default']
+    Games: typeof import('./src/components/league-admin/games.vue')['default']
+    LeagueDashboard: typeof import('./src/components/dashboard/league-dashboard.vue')['default']
+    LeaguePlayers: typeof import('./src/components/league-admin/league-players.vue')['default']
+    LeagueTable: typeof import('./src/components/league-admin/league-table.vue')['default']
+    PlayerFormModal: typeof import('./src/components/league-admin/player-form-modal.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
